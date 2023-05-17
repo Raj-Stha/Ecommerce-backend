@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const app = express();
+
+const cors = require('cors');
 const userRoute = require('./route/userRoute');
 
 const productRoute = require('./route/productRoute');
@@ -13,7 +15,7 @@ mongoose.connect('mongodb+srv://rajstha:9840rajstha@cluster0.lvr5vhq.mongodb.net
   })
   .catch((err) => { console.log(err); })
 
-
+app.use(cors());
 app.use(express.json());
 
 app.use(fileUpload({
