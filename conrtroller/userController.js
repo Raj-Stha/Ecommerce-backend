@@ -3,6 +3,8 @@ const user = require('../model/User');
 const bcrpyt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
+
 const userLogin = async (req, res) => {
   const { email, password } = req.body;
   let result = await user.findOne({ email: email });

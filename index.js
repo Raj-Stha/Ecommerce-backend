@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const app = express();
 const userRoute = require('./route/userRoute');
 
+const productRoute = require('./route/productRoute');
+const fileUpload = require('express-fileupload');
+
 mongoose.connect('mongodb+srv://rajstha:9840rajstha@cluster0.lvr5vhq.mongodb.net/')
   .then(() => {
     app.listen(5000);
@@ -13,6 +16,14 @@ mongoose.connect('mongodb+srv://rajstha:9840rajstha@cluster0.lvr5vhq.mongodb.net
 
 app.use(express.json());
 
+app.use(fileUpload({
+  limits: { fieldSize: 50 * 1024 * 1024 },
+  createParentPath: true,
+  abortOnLimit: true
+}));
+
+
+app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
   return res.send('Homepage');
@@ -20,3 +31,5 @@ app.get('/', (req, res) => {
 
 
 app.use(userRoute);
+
+app.use(productRoute);
