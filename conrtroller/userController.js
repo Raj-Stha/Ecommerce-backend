@@ -18,7 +18,7 @@ const userLogin = async (req, res) => {
         status: "success", userDetails: {
           token,
           email, address: result.shippingAddress,
-          isAdmin: res.admin
+          isAdmin: result.admin
         }
       })
     } else {
