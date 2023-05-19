@@ -1,7 +1,21 @@
+const productModel = require('../model/Product');
+
 const addProduct = async (req, res) => {
+
+  const { productName, brand, price, categories, productDesc, stock } = req.body;
+  const productImage = req.prodImage;
+
   try {
-    // console.log(req.userID);
-    return res.send("You have accesss");
+    productModel.create({
+      productName,
+      productImage,
+      brand,
+      productPrice: price,
+      categories,
+      productDetail: productDesc,
+      stock
+    })
+    return res.status(201).json({ status: 201, message: "Product Created" });
   }
   catch (e) {
     return (res.status(401).json({ status: "401", message: e }))

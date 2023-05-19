@@ -37,13 +37,9 @@ const productSchema = mongoose.Schema({
   reviews: [reviewSechema],
   productPrice: {
     type: Number,
-    required: true
-  },
-  rating: {
-    type: Number,
-    default: 0
 
   },
+
   rating: {
     type: Number,
     default: 0
@@ -52,9 +48,9 @@ const productSchema = mongoose.Schema({
   categories: {
     type: String,
   },
-  stockCount: {
+  stock: {
     type: Number,
-    required: true
+
   }
 
 
