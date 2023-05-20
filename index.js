@@ -27,11 +27,5 @@ app.use(fileUpload({
 
 app.use('/uploads', express.static('uploads'));
 
-app.get('/', (req, res) => {
-  return res.send('Homepage');
-})
-
-
 app.use(userRoute);
-
 app.use(productRoute);

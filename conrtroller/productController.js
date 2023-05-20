@@ -1,4 +1,6 @@
 const productModel = require('../model/Product');
+const mongoose = require('mongoose');
+const fs = require('fs');
 
 const addProduct = async (req, res) => {
 
@@ -24,7 +26,13 @@ const addProduct = async (req, res) => {
 
 const allProduct = async (req, res) => {
   try {
-    return res.status(201).json({ status: "201", message: "Product Created" })
+    const result = await productModel.find();
+    if (result) {
+      return res.status(200).json({ products: result })
+    } else {
+      return (res.status(404).json({ status: "401", message: "No product found" }))
+
+    }
   }
   catch (e) {
     return (res.status(401).json({ status: "401", message: e }))
@@ -32,29 +40,57 @@ const allProduct = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
+  const { id } = req.params;
   try {
+
+    const result = await productModel.findByIdAndUpdate({ _id: id }, {
+      productImage: req.productImage
+    })
     return res.status(201).json({ status: "201", message: "Product Created" })
   }
   catch (e) {
     return (res.status(401).json({ status: "401", message: e }))
   }
 }
+
+
 
 const getProductDetails = async (req, res) => {
+  const { id } = req.params;
   try {
-    return res.status(201).json({ status: "201", message: "Product Created" })
+    const idExists = mongoose.isValidObjectId(id);
+    if (idExists) {
+      const result = await productModel.findOne({ '_id': id });
+      return res.status(200).json(result);
+    } else {
+      return (res.status(404).json({ status: "401", message: "Invalid Product ID" }))
+    }
   }
   catch (e) {
-    return (res.status(401).json({ status: "401", message: e }))
+    return (res.status(404).json({ status: "404", message: `${e}` }))
   }
 }
 
+
+
 const deleteProduct = async (req, res) => {
+  const { productID, imagePath } = req.body;
   try {
-    return res.status(201).json({ status: "201", message: "Product Created" })
+    if (productID && imagePath) {
+      fs.unlink(`.${imagePath}`, (err) => {
+        if (err) {
+          return res.status(404).json({ status: 404, message: "Unable to remove the product Image" })
+        }
+      });
+      await productModel.findByIdAndDelete({ _id: productID });
+      return res.status(200).json({ status: 200, message: "Product Deleted" })
+
+    } else {
+      return (res.status(404).json({ status: "404", message: "Product ID and Image Path is required" }))
+    }
   }
   catch (e) {
-    return (res.status(401).json({ status: "401", message: e }))
+    return (res.status(404).json({ status: "404", message: `${e}` }))
   }
 }
 
