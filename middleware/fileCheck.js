@@ -32,7 +32,7 @@ module.exports.fileCheck = (req, res, next) => {
 
 
 module.exports.updateCheck = (req, res, next) => {
-  const { productImage } = req.body;
+  const { productImage } = req.body.details;
 
   try {
     if (req.files === null) {
