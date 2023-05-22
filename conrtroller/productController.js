@@ -41,18 +41,17 @@ const allProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const { details } = req.body;
+  const { productImage, productName, brand, price, categories, productDesc, stock } = req.body;
 
   try {
-
     const result = await productModel.findByIdAndUpdate({ _id: id }, {
-      productImage: req.productImage,
-      productName: details.productName,
-      brand: details.brand,
-      productPrice: details.price,
-      categories: details.categories,
-      productDetail: details.productDesc,
-      stock: details.stock,
+      productImage,
+      productName,
+      brand,
+      productPrice: price,
+      categories,
+      productDetail: productDesc,
+      stock,
     })
     return res.status(201).json({ status: "201", message: "Product Updated" })
   }
