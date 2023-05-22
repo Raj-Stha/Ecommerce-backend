@@ -83,7 +83,7 @@ const getProductDetails = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const { productID, imagePath } = req.body;
   try {
-    if (productID && imagePath) {
+    if (productID) {
       fs.unlink(`.${imagePath}`, (err) => {
         if (err) {
           return res.status(404).json({ status: 404, message: "Unable to remove the product Image" })
