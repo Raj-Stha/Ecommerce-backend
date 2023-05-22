@@ -85,9 +85,7 @@ const deleteProduct = async (req, res) => {
   try {
     if (productID) {
       fs.unlink(`.${imagePath}`, (err) => {
-        if (err) {
-          return res.status(404).json({ status: 404, message: "Unable to remove the product Image" })
-        }
+        console.log(err);
       });
       await productModel.findByIdAndDelete({ _id: productID });
       return res.status(200).json({ status: 200, message: "Product Deleted" })
