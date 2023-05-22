@@ -41,12 +41,20 @@ const allProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { id } = req.params;
+  const { details } = req.body;
+
   try {
 
     const result = await productModel.findByIdAndUpdate({ _id: id }, {
-      productImage: req.productImage
+      productImage: req.productImage,
+      productName: details.productName,
+      brand: details.brand,
+      productPrice: details.price,
+      categories: details.categories,
+      productDetail: details.productDesc,
+      stock: details.stock,
     })
-    return res.status(201).json({ status: "201", message: "Product Created" })
+    return res.status(201).json({ status: "201", message: "Product Updated" })
   }
   catch (e) {
     return (res.status(401).json({ status: "401", message: e }))

@@ -50,8 +50,8 @@ module.exports.updateCheck = (req, res, next) => {
           image.mv(`./uploads/images/${image.name}`, (err) => {
             console.log(err)
           });
-          if (oldPath !== null) {
-            const data = fs.unlink(`.${oldPath}`, (err) => {
+          if (oldPath !== " ") {
+            fs.unlink(`.${oldPath}`, (err) => {
               console.log(err);
             })
           }
