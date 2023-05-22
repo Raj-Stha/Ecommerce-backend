@@ -41,7 +41,8 @@ const allProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const { productImage, productName, brand, price, categories, productDesc, stock } = req.body;
+  const { productName, brand, price, categories, productDesc, stock } = req.body;
+  const productImage = req.finalImage;
 
   try {
     const result = await productModel.findByIdAndUpdate({ _id: id }, {

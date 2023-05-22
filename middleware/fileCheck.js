@@ -33,10 +33,9 @@ module.exports.fileCheck = (req, res, next) => {
 
 module.exports.updateCheck = (req, res, next) => {
   const { productImage } = req.body;
-
   try {
     if (req.files === null) {
-      req.productImage = productImage;
+      req.finalImage = productImage;
       return next();
 
     } else {
@@ -55,7 +54,7 @@ module.exports.updateCheck = (req, res, next) => {
               console.log(err);
             })
           }
-          req.productImage = `/uploads/images/${image.name}`;
+          req.finalImage = `/uploads/images/${image.name}`;
           return next();
         }
         else {
