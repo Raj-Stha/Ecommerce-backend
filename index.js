@@ -8,7 +8,7 @@ const userRoute = require('./route/userRoute');
 
 const productRoute = require('./route/productRoute');
 const fileUpload = require('express-fileupload');
-
+const orderRoute = require('./route/orderRoute');
 mongoose.connect('mongodb+srv://rajstha:9840rajstha@cluster0.lvr5vhq.mongodb.net/')
   .then(() => {
     app.listen(5000);
@@ -29,3 +29,4 @@ app.use('/uploads', express.static('uploads'));
 
 app.use(userRoute);
 app.use(productRoute);
+app.use(orderRoute);

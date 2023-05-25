@@ -51,4 +51,20 @@ const signup = async (req, res) => {
   }
 }
 
-module.exports = { userLogin, signup };
+
+const updateUser = async (req, res) => {
+
+  const { shippingAddress } = req.body;
+  const userDetail = await user.findById(req.userID);
+  if (userDetail) {
+    console.log(shippingAddress);
+
+    userDetail.shippingAddress = shippingAddress || userDetail.shippingAddress;
+    userDetail.save();
+    return res.status(200).json({ status: 200, message: "Updated User Details" })
+  } else {
+    return res.status(400).json({ status: 400, message: "Couldn't find userDetails" })
+  }
+
+}
+module.exports = { userLogin, signup, updateUser };
