@@ -18,7 +18,8 @@ const userLogin = async (req, res) => {
         status: "success", userDetails: {
           token,
           email, address: result.shippingAddress,
-          isAdmin: result.admin
+          isAdmin: result.admin,
+          fullName: result.fullName
         }
       })
     } else {
@@ -57,13 +58,12 @@ const updateUser = async (req, res) => {
   const { shippingAddress } = req.body;
   const userDetail = await user.findById(req.userID);
   if (userDetail) {
-    console.log(shippingAddress);
-
     userDetail.shippingAddress = shippingAddress || userDetail.shippingAddress;
     userDetail.save();
-    return res.status(200).json({ status: 200, message: "Updated User Details" })
+
+    return res.status(200).json({ status: 200, message: "User Updated" });
   } else {
-    return res.status(400).json({ status: 400, message: "Couldn't find userDetails" })
+    return res.status(400).json({ status: 400, message: "Couldn't find userDetails" });
   }
 
 }

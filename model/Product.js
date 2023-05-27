@@ -13,6 +13,11 @@ const reviewSechema = mongoose.Schema({
   comment: {
     type: String,
     required: true
+  },
+  userID: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
   }
 });
 

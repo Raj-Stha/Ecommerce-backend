@@ -25,6 +25,7 @@ module.exports.checkAdmin = (req, res, next) => {
 
 module.exports.checkUser = (req, res, next) => {
   const token = req.headers.authorization;
+  const userID = req.userID;
   const decode = jwt.decode(token, 'UserToken');
 
   if (token) {
@@ -34,7 +35,7 @@ module.exports.checkUser = (req, res, next) => {
       return next();
     }
     else {
-      return res.status(400).json({ status: "400", message: "You are not authorized" });
+      return res.status(200).json({ status: "200", message: "You are not authorized" });
     }
 
   } else {

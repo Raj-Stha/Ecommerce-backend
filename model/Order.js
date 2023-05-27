@@ -9,7 +9,7 @@ const orderSchema = mongoose.Schema({
 
   orderItems: [
     {
-      name: {
+      productName: {
         type: String,
         required: true
       },
@@ -17,11 +17,11 @@ const orderSchema = mongoose.Schema({
         type: Number,
         required: true
       },
-      image: {
+      productImage: {
         type: String,
         required: true
       },
-      price: {
+      productPrice: {
         type: Number,
         required: true
       },

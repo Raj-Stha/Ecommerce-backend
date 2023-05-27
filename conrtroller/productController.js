@@ -101,8 +101,49 @@ const deleteProduct = async (req, res) => {
 }
 
 
+const addReview = async (req, res) => {
+  const { id } = req.params;
+  const { fullName, rating, comment } = req.body;
+  try {
+    const result = await productModel.findById(id)
+    if (result.reviews.length == 0) {
+      result.reviews.push({
+        userName: fullName,
+        rating,
+        comment,
+        userID: req.userID
+      })
+      result.save();
+      return res.status(200).json({ status: 200, message: "Review Added" });
+    }
+    else {
+
+      const userExits = result.reviews.find((e) => e.userID.toString() === req.userID);
+
+      if (userExits) {
+        return res.status(200).json({ status: 200, message: "Review Already Added" });
+      } else {
+        result.reviews.push({
+          userName: fullName,
+          rating,
+          comment,
+          userID: req.userID
+        })
+        result.save();
+        return res.status(200).json({ status: 200, message: "Review Added" });
+      }
+
+    }
+
+  }
+  catch (e) {
+    return (res.status(404).json({ status: "404", message: `${e}` }))
+  }
+}
 
 
-module.exports = { addProduct, allProduct, updateProduct, getProductDetails, deleteProduct };
+
+
+module.exports = { addProduct, allProduct, updateProduct, getProductDetails, deleteProduct, addReview };
 
 

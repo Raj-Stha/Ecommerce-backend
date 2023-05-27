@@ -15,4 +15,7 @@ router.patch('/api/update-product/:id', userAuth.checkAdmin, files.updateCheck, 
 router.post('/api/delete-product', userAuth.checkAdmin, productController.deleteProduct);
 
 
+router.patch('/api/add-review/:id', userAuth.checkUser, productController.addReview)
+
+
 module.exports = router;
